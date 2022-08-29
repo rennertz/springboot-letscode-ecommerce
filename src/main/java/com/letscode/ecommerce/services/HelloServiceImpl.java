@@ -7,8 +7,9 @@ import org.springframework.stereotype.Service;
 import org.springframework.util.StringUtils;
 
 @Service
-public class HelloServices {
+public class HelloServiceImpl implements HelloService {
     public String helloWithNameAndTime(String name) {
-        return "Hello " + StringUtils.capitalize(name) + ", it's " + LocalTime.now().format(DateTimeFormatter.ofPattern("HH:mm")) + "!";
+        String localTime = LocalTime.now().format(DateTimeFormatter.ofPattern("HH:mm"));
+        return "Hello " + StringUtils.capitalize(name) + "! It's " + localTime + " now, don't forget it!";
     }
 }
