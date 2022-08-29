@@ -1,5 +1,7 @@
 package com.letscode.ecommerce.controllers;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -17,13 +19,17 @@ public class HelloController {
     @Autowired
     HelloService helloServices;
 
+    Logger log = LoggerFactory.getLogger(HelloController.class);
+
     @RequestMapping(path = "hello", method = RequestMethod.GET)
     public ResponseEntity<String> hello() {
+        log.info("Saudação transmitida com sucesso!");
         return new ResponseEntity<>("Hello!", HttpStatus.OK);
     }
 
     @RequestMapping(path = "hello/{name}", method = RequestMethod.GET)
     public ResponseEntity<String> helloWithName(@PathVariable String name) {
+        log.info("Saudação personalizada transmitida com sucesso para "+ name + "!");
         return new ResponseEntity<>("Hello " + StringUtils.capitalize(name) + "!", HttpStatus.OK);
     }
    
