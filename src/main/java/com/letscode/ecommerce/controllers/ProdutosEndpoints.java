@@ -65,13 +65,13 @@ public class ProdutosEndpoints {
         }
     }
 
-    @RequestMapping(path="/produtos/categorias", method = RequestMethod.GET, produces = APPLICATION_JSON_VALUE)
+    @RequestMapping(path="/produtosDummy/categorias", method = RequestMethod.GET, produces = APPLICATION_JSON_VALUE)
     public ResponseEntity<List<String>> getAllCategories() {
 
         return ResponseEntity.ok(financeiroRestClient.findAllCategories());
     }
 
-    @RequestMapping(path="/produtos/dummy", method = RequestMethod.GET, produces = APPLICATION_JSON_VALUE)
+    @RequestMapping(path="/produtosDummy", method = RequestMethod.GET, produces = APPLICATION_JSON_VALUE)
     public ResponseEntity<List<DummyProductDto>> getAllProductsDummy() {
 
         return ResponseEntity.ok(financeiroRestClient.findAllProducts());
