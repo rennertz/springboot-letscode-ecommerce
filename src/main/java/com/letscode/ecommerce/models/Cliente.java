@@ -25,6 +25,13 @@ public class Cliente {
     @Column(name = "cpf")
     private String cpf;
 
+    @Column(name = "senha")
+    private String senha;
+
+    @Enumerated(EnumType.STRING)
+    private PerfilEnum perfil;
+    
+
     public long getId() {
         return id;
     }
@@ -73,21 +80,41 @@ public class Cliente {
         this.cpf = cpf;
     }
 
-    public Cliente(long id, String nome, String sobrenome, String email, String sexo, String cpf){
+    public String getSenha() {
+        return senha;
+    }
+
+    public void setSenha(String senha) {
+        this.senha = senha;
+    }
+
+    public PerfilEnum getPerfil() {
+        return perfil;
+    }
+
+    public void setPerfil(PerfilEnum perfil) {
+        this.perfil = perfil;
+    }
+
+    public Cliente(long id, String nome, String sobrenome, String email, String sexo, String cpf, String senha, PerfilEnum perfil) {
         this.id = id;
         this.nome = nome;
         this.sobrenome = sobrenome;
         this.email = email;
         this.sexo = sexo;
         this.cpf = cpf;
+        this.senha = senha;
+        this.perfil = perfil;
     }
 
-    public Cliente(String nome, String sobrenome, String email, String sexo, String cpf){
+    public Cliente(String nome, String sobrenome, String email, String sexo, String cpf, String senha, PerfilEnum perfil){
         this.nome = nome;
         this.sobrenome = sobrenome;
         this.email = email;
         this.sexo = sexo;
         this.cpf = cpf;
+        this.senha = senha;
+        this.perfil = perfil;
     }
 
     public Cliente() {}

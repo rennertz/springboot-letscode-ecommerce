@@ -63,11 +63,25 @@
 			<version>1.18.24</version>
 		</dependency>
 
+		<!-- Swagger -->
 		<dependency>
 			<groupId>org.springdoc</groupId>
 			<artifactId>springdoc-openapi-ui</artifactId>
 			<version>1.6.9</version>
 		</dependency>
+
+		<!-- spring security -->
+		<!-- Assim que a dependencia eh adicionada, TODAS as requisicoes vao automaticamente para a pagina http://localhost:8080/login -->
+        <!-- A opcao logout tambem esta disponivel http://localhost:8080/logout -->
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-security</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>io.jsonwebtoken</groupId>
+            <artifactId>jjwt</artifactId>
+            <version>0.9.1</version>
+        </dependency>
 
 	</dependencies>
 
