@@ -24,7 +24,12 @@ public class ClienteServiceImpl implements ClienteService {
     }
 
     public List<Cliente> listarTodosClientes(){
-        return clienteDao.findAll();
+        List<Cliente> lista = clienteDao.findAll();
+
+        // apaga senhas da exibição
+        lista.stream().forEach(cliente -> cliente.setSenha(""));
+
+        return lista;
     }
 
     //Usando o DTO pq nosso caso (de mentirinha), precisamos de algum trabalho nele antes de chegar a camada de persistencia
