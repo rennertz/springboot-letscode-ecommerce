@@ -20,7 +20,7 @@ import java.util.List;
 import static org.springframework.http.MediaType.APPLICATION_JSON_VALUE;
 
 @RestController
-public class ProdutosEndpoints {
+public class ProdutoEndpoints {
 
     @Autowired
     FinanceiroRestClient financeiroRestClient;
@@ -28,12 +28,12 @@ public class ProdutosEndpoints {
     @Autowired
     ProdutoService produtoService;
 
-    @RequestMapping(path = "/produtos", method = RequestMethod.GET)
+    @RequestMapping(path = "/produto", method = RequestMethod.GET)
     public ResponseEntity<List<Produto>> getAllProducts() {
         return new ResponseEntity<List<Produto>>(produtoService.listarTodosProdutos(), HttpStatus.OK);
     }
 
-    @RequestMapping(path = "/produtos", method = RequestMethod.POST)
+    @RequestMapping(path = "/produto", method = RequestMethod.POST)
     public ResponseEntity<String> createProduct(@RequestBody Produto produto) {
         boolean sucesso = produtoService.novoProduto(produto);
 
@@ -44,7 +44,7 @@ public class ProdutosEndpoints {
         }
     }
 
-    @RequestMapping(path = "/produtos", method = RequestMethod.PUT)
+    @RequestMapping(path = "/produto", method = RequestMethod.PUT)
     public ResponseEntity<String> changeProduct(@RequestBody Produto produto) {
         boolean sucesso = produtoService.atualizaProduto(produto);
 
@@ -56,7 +56,7 @@ public class ProdutosEndpoints {
     }
 
     @PreAuthorize("hasAnyRole('ADMIN')")
-    @RequestMapping(path = "/produtos/{id}", method = RequestMethod.DELETE)
+    @RequestMapping(path = "/produto/{id}", method = RequestMethod.DELETE)
     public ResponseEntity<String> deleteProduct(@PathVariable Long id) {
         boolean sucesso = produtoService.deletaProduto(id);
 
@@ -67,13 +67,13 @@ public class ProdutosEndpoints {
         }
     }
 
-    @RequestMapping(path="/produtosDummy/categorias", method = RequestMethod.GET, produces = APPLICATION_JSON_VALUE)
+    @RequestMapping(path="/produtoDummy/categorias", method = RequestMethod.GET, produces = APPLICATION_JSON_VALUE)
     public ResponseEntity<List<String>> getAllCategories() {
 
         return ResponseEntity.ok(financeiroRestClient.findAllCategories());
     }
 
-    @RequestMapping(path="/produtosDummy", method = RequestMethod.GET, produces = APPLICATION_JSON_VALUE)
+    @RequestMapping(path="/produtoDummy", method = RequestMethod.GET, produces = APPLICATION_JSON_VALUE)
     public ResponseEntity<List<DummyProductDto>> getAllProductsDummy() {
 
         return ResponseEntity.ok(financeiroRestClient.findAllProducts());
