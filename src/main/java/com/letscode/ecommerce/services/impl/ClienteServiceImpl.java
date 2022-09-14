@@ -10,6 +10,7 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.stream.Collectors;
 
 @Service
 public class ClienteServiceImpl implements ClienteService {
@@ -26,8 +27,13 @@ public class ClienteServiceImpl implements ClienteService {
     public List<Cliente> listarTodosClientes(){
         List<Cliente> lista = clienteDao.findAll();
 
+        // exibe apenas clientes, ocultando admins
+        lista = lista.stream()
+            .filter(cliente -> cliente.getPerfil().equals(PerfilEnum.CLIENTE))
+            .collect(Collectors.toList());
+
         // apaga senhas da exibição
-        lista.stream().forEach(cliente -> cliente.setSenha(""));
+        lista.forEach(cliente -> cliente.setSenha(""));
 
         return lista;
     }
@@ -59,6 +65,13 @@ public class ClienteServiceImpl implements ClienteService {
     }
 
     public boolean removerCliente(long id) {
+
+        // impede deleção de um admin
+        Cliente cliente = clienteDao.getById(id);
+        if (cliente.getPerfil().equals(PerfilEnum.ADMIN)) {
+            return false;
+        }
+
         try {
             clienteDao.deleteById(id);
             return true;
