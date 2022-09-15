@@ -5,6 +5,10 @@ import com.letscode.ecommerce.models.Produto;
 import com.letscode.ecommerce.restclient.FinanceiroRestClient;
 import com.letscode.ecommerce.services.ProdutoService;
 
+import io.swagger.v3.oas.annotations.media.Content;
+import io.swagger.v3.oas.annotations.media.Schema;
+import io.swagger.v3.oas.annotations.responses.ApiResponse;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -28,7 +32,14 @@ public class ProdutoEndpoints {
     @Autowired
     ProdutoService produtoService;
 
+    // TODO: exibir response como Array de Conta
     @RequestMapping(path = "/produto", method = RequestMethod.GET)
+    @ApiResponse(
+        responseCode = "200",
+        description = "Conta",
+        content = { @Content(mediaType = "application/json",
+                schema = @Schema(implementation = Produto.class))}
+    )
     public ResponseEntity<List<Produto>> getAllProducts() {
         return new ResponseEntity<List<Produto>>(produtoService.listarTodosProdutos(), HttpStatus.OK);
     }
