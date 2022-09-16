@@ -5,6 +5,7 @@ import com.letscode.ecommerce.models.Produto;
 import com.letscode.ecommerce.restclient.FinanceiroRestClient;
 import com.letscode.ecommerce.services.ProdutoService;
 
+import io.swagger.v3.oas.annotations.media.ArraySchema;
 import io.swagger.v3.oas.annotations.media.Content;
 import io.swagger.v3.oas.annotations.media.Schema;
 import io.swagger.v3.oas.annotations.responses.ApiResponse;
@@ -32,19 +33,19 @@ public class ProdutoEndpoints {
     @Autowired
     ProdutoService produtoService;
 
-    // TODO: exibir response como Array de Conta
     @RequestMapping(path = "/produto", method = RequestMethod.GET)
     @ApiResponse(
         responseCode = "200",
-        description = "Conta",
-        content = { @Content(mediaType = "application/json",
-                schema = @Schema(implementation = Produto.class))}
+        description = "Lista de contas",
+        content = { @Content(mediaType = "application/json", array = 
+            @ArraySchema(schema = @Schema(implementation = Produto.class)))}
     )
     public ResponseEntity<List<Produto>> getAllProducts() {
         return new ResponseEntity<List<Produto>>(produtoService.listarTodosProdutos(), HttpStatus.OK);
     }
 
     @RequestMapping(path = "/produto", method = RequestMethod.POST)
+    @ApiResponse(responseCode = "200", description = "Produto criado com sucesso!")
     public ResponseEntity<String> createProduct(@RequestBody Produto produto) {
         boolean sucesso = produtoService.novoProduto(produto);
 
@@ -56,6 +57,7 @@ public class ProdutoEndpoints {
     }
 
     @RequestMapping(path = "/produto", method = RequestMethod.PUT)
+    @ApiResponse(responseCode = "200", description = "Produto alterado com sucesso!")
     public ResponseEntity<String> changeProduct(@RequestBody Produto produto) {
         boolean sucesso = produtoService.atualizaProduto(produto);
 
@@ -68,6 +70,7 @@ public class ProdutoEndpoints {
 
     @PreAuthorize("hasAnyRole('ADMIN')")
     @RequestMapping(path = "/produto/{id}", method = RequestMethod.DELETE)
+    @ApiResponse(responseCode = "200", description = "Produto deletado com sucesso!")
     public ResponseEntity<String> deleteProduct(@PathVariable Long id) {
         boolean sucesso = produtoService.deletaProduto(id);
 
