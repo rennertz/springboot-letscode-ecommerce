@@ -53,10 +53,9 @@ public class WebSecurityConfig {
         http.cors().and().csrf().disable()//Habilita CORS (Cross-origin resource sharing, requests vindas de outro domain sao permitidas) e desabilita CSRF (Cross-site request forgery)
                 .authorizeRequests()
                     //Requests para as URLs e metodos abaixo sao  permitidas SEM AUTENTICACAO
-                    .antMatchers(HttpMethod.POST, 
-                            "/cliente", 
-                            "/produtos").permitAll()
-                    .antMatchers(HttpMethod.GET, 
+                    .antMatchers(HttpMethod.POST, "/cliente").permitAll()
+                    .antMatchers(HttpMethod.GET,
+                            "/produto",
                             "/swagger-ui.html", 
                             "/swagger-ui/**",
                             "/v3/api-docs/**").permitAll()
