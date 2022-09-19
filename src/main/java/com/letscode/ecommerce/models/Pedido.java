@@ -21,6 +21,7 @@ public class Pedido {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private long Id;
 
+    // TODO: Ocultar informações sensíveis do cliente (especialmente senha e perfil de acesso)
     @ManyToOne(optional = false)
     private Cliente cliente;
     
