@@ -48,7 +48,7 @@ public class Cliente {
         cascade = CascadeType.ALL,
         orphanRemoval = true
     )
-    @JoinColumn(name = "client_id")
+    @JoinColumn(name = "id_cliente")
     private List<Pedido> pedidos = new ArrayList<>();
 
     

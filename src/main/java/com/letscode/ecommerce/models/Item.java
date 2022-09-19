@@ -1,5 +1,6 @@
 package com.letscode.ecommerce.models;
 
+import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
@@ -18,16 +19,40 @@ public class Item {
 
     @ManyToOne
     @JoinColumn(name = "id_produto")
-    private Produto produto;
+    private final Produto produto;
+
+    @Column(name = "quantidade")
+    private Integer quantidade;
 
     @ManyToOne
     @JoinColumn(name = "id_pedido")
-    private Pedido pedido;
+    private final Pedido pedido;
 
     
-    public Item(Produto produto, Pedido pedido) {
+    public Item(Produto produto, Integer quantidade, Pedido pedido) {
         this.produto = produto;
         this.pedido = pedido;
+        this.quantidade = quantidade; 
+    }
+
+    public void setQuantidade(Integer quantidade) {
+        this.quantidade = quantidade;
+    }
+
+    public long getId() {
+        return id;
+    }
+
+    public Produto getProduto() {
+        return produto;
+    }
+
+    public Integer getQuantidade() {
+        return quantidade;
+    }
+
+    public Pedido getPedido() {
+        return pedido;
     }
 
 }

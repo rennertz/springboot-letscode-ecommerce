@@ -22,7 +22,7 @@ public class Pedido {
     private long Id;
 
     @ManyToOne(optional = false)
-    private final Cliente cliente;
+    private Cliente cliente;
     
     @OneToMany(
         mappedBy = "pedido",
@@ -41,6 +41,25 @@ public class Pedido {
         this.efetuado = false;
     }
     
+    public Pedido() {
+    }
+
+    public long getId() {
+        return Id;
+    }
+
+    public Cliente getCliente() {
+        return cliente;
+    }
+
+    public List<Item> getItens() {
+        return itens;
+    }
+
+    public boolean isEfetuado() {
+        return efetuado;
+    }
+
 
     public void addItem(Item item) {
         this.itens.add(item);
