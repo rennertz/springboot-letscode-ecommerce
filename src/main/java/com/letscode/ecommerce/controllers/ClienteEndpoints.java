@@ -3,6 +3,7 @@ package com.letscode.ecommerce.controllers;
 import static org.springframework.http.MediaType.APPLICATION_JSON_VALUE;
 
 import java.util.List;
+import java.util.Objects;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -16,14 +17,12 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.letscode.ecommerce.dto.ClienteDto;
 import com.letscode.ecommerce.models.Cliente;
-import com.letscode.ecommerce.models.Produto;
 import com.letscode.ecommerce.services.ClienteService;
 
 import io.swagger.v3.oas.annotations.media.ArraySchema;
 import io.swagger.v3.oas.annotations.media.Content;
 import io.swagger.v3.oas.annotations.media.Schema;
 import io.swagger.v3.oas.annotations.responses.ApiResponse;
-import io.swagger.v3.oas.annotations.responses.ApiResponses;
 
 @RestController
 public class ClienteEndpoints {
@@ -50,11 +49,11 @@ public class ClienteEndpoints {
     public ResponseEntity<Cliente> novoCliente(@RequestBody ClienteDto cliente) {
         Cliente clienteSalvo = clienteService.novoCliente(cliente);
 
-        if(clienteSalvo != null) {
-            return new ResponseEntity<>(clienteSalvo, HttpStatus.CREATED);
+        if(Objects.isNull(clienteSalvo)) {
+            return new ResponseEntity("Criacao do cliente falhou!", HttpStatus.BAD_REQUEST);
         }
         else {
-            return new ResponseEntity("Criacao do cliente falhou!", HttpStatus.BAD_REQUEST);
+            return new ResponseEntity<>(clienteSalvo, HttpStatus.CREATED);
         }
     }
 
