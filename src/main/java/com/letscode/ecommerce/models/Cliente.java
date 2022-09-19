@@ -44,14 +44,14 @@ public class Cliente {
     @Enumerated(EnumType.STRING)
     private PerfilEnum perfil;
     
-    private List<Pedido> pedidos = new ArrayList<>();
-
-
     @OneToMany(
         cascade = CascadeType.ALL,
         orphanRemoval = true
     )
     @JoinColumn(name = "client_id")
+    private List<Pedido> pedidos = new ArrayList<>();
+
+    
     public List<Pedido> getPedidos() {
         return pedidos;
     }
