@@ -1,7 +1,7 @@
 package com.letscode.ecommerce.models;
 
-import java.util.ArrayList;
-import java.util.List;
+import java.util.LinkedHashSet;
+import java.util.Set;
 
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
@@ -12,6 +12,8 @@ import javax.persistence.Id;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
+
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 
 @Entity
 @Table(name = "Pedido")
@@ -30,8 +32,8 @@ public class Pedido {
         cascade = CascadeType.ALL,
         orphanRemoval = true
     )
-    // TODO: mudar para Set
-    private List<Item> itens = new ArrayList<>();
+    @JsonManagedReference
+    private Set<Item> itens = new LinkedHashSet<>();
 
     @Column(name = "efetuado")
     private boolean efetuado;
@@ -53,25 +55,37 @@ public class Pedido {
         return cliente;
     }
 
-    public List<Item> getItens() {
+    public Set<Item> getItens() {
         return itens;
     }
 
-    public boolean isEfetuado() {
+    public boolean getEfetuado() {
         return efetuado;
     }
 
-
-    public void addItem(Item item) {
-        this.itens.add(item);
+    public void setId(long id) {
+        Id = id;
     }
 
-    public void removeItem(Item item) {
-        this.itens.remove(item);
+    public void setCliente(Cliente cliente) {
+        this.cliente = cliente;
     }
 
-    public void efetuaPedido() {
-        this.efetuado = true;
+    public void setItens(Set<Item> itens) {
+        this.itens = itens;
     }
+
+    public void setEfetuado(boolean efetuado) {
+        this.efetuado = efetuado;
+    }
+
+    // public void addItem(Item item) {
+    //     this.itens.add(item);
+    // }
+
+    // public void removeItem(Item item) {
+    //     this.itens.remove(item);
+    // }
+
     
 }

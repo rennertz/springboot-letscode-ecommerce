@@ -9,6 +9,8 @@ import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
+
 @Entity
 @Table(name = "item")
 public class Item {
@@ -18,21 +20,25 @@ public class Item {
     private long id;
 
     @ManyToOne
-    @JoinColumn(name = "id_produto")
-    private final Produto produto;
+    @JoinColumn(name = "id_produto", nullable = false)
+    private Produto produto;
 
     @Column(name = "quantidade")
     private Integer quantidade;
 
     @ManyToOne
-    @JoinColumn(name = "id_pedido")
-    private final Pedido pedido;
+    @JoinColumn(name = "id_pedido", nullable = false)
+    @JsonBackReference
+    private Pedido pedido;
 
     
     public Item(Produto produto, Integer quantidade, Pedido pedido) {
         this.produto = produto;
         this.pedido = pedido;
         this.quantidade = quantidade; 
+    }
+
+    public Item() {
     }
 
     public void setQuantidade(Integer quantidade) {
@@ -54,5 +60,19 @@ public class Item {
     public Pedido getPedido() {
         return pedido;
     }
+
+    public void setId(long id) {
+        this.id = id;
+    }
+
+    public void setProduto(Produto produto) {
+        this.produto = produto;
+    }
+
+    public void setPedido(Pedido pedido) {
+        this.pedido = pedido;
+    }
+
+    
 
 }
