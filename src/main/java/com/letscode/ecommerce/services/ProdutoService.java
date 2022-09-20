@@ -9,7 +9,7 @@ public interface ProdutoService {
 
     List<Produto> listarTodosProdutos();
 
-    boolean novoProduto(Produto produto);
+    Produto novoProduto(Produto produto);
 
     boolean atualizaProduto(Produto produto);
 

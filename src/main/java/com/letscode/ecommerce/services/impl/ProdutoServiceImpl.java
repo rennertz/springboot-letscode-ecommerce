@@ -21,13 +21,13 @@ public class ProdutoServiceImpl implements ProdutoService {
     }
 
     @Override
-    public boolean novoProduto(Produto produto) {
+    public Produto novoProduto(Produto produto) {
         try {
             Produto novoProduto = new Produto(produto.getNome(), produto.getPreco(), produto.getDescricao());
             produtoDao.save(novoProduto);
-            return true;
+            return novoProduto;
         } catch (Exception e) {
-            return false;
+            return null;
         }
     }
 

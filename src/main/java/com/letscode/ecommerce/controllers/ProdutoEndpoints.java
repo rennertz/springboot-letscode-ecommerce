@@ -21,6 +21,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
 import java.util.List;
+import java.util.Objects;
 
 import static org.springframework.http.MediaType.APPLICATION_JSON_VALUE;
 
@@ -46,13 +47,13 @@ public class ProdutoEndpoints {
 
     @RequestMapping(path = "/produto", method = RequestMethod.POST)
     @ApiResponse(responseCode = "200", description = "Produto criado com sucesso!")
-    public ResponseEntity<String> createProduct(@RequestBody Produto produto) {
-        boolean sucesso = produtoService.novoProduto(produto);
+    public ResponseEntity<Produto> createProduct(@RequestBody Produto produto) {
+        Produto novoProduto = produtoService.novoProduto(produto);
 
-        if (sucesso) {
-            return new ResponseEntity<String>("Produto criado com sucesso!", HttpStatus.CREATED);
+        if (Objects.isNull(novoProduto)) {
+            return new ResponseEntity("Falha ao criar produto!", HttpStatus.BAD_REQUEST);
         } else {
-            return new ResponseEntity<String>("Falha ao criar produto!", HttpStatus.BAD_REQUEST);
+            return new ResponseEntity<>(novoProduto, HttpStatus.CREATED);
         }
     }
 
@@ -69,10 +70,10 @@ public class ProdutoEndpoints {
     }
 
     @PreAuthorize("hasAnyRole('ADMIN')")
-    @RequestMapping(path = "/produto/{id}", method = RequestMethod.DELETE)
+    @RequestMapping(path = "/produto/{idProduto}", method = RequestMethod.DELETE)
     @ApiResponse(responseCode = "200", description = "Produto deletado com sucesso!")
-    public ResponseEntity<String> deleteProduct(@PathVariable Long id) {
-        boolean sucesso = produtoService.deletaProduto(id);
+    public ResponseEntity<String> deleteProduct(@PathVariable Long idProduto) {
+        boolean sucesso = produtoService.deletaProduto(idProduto);
 
         if (sucesso) {
             return new ResponseEntity<String>("Produto deletado com sucesso!", HttpStatus.OK);
