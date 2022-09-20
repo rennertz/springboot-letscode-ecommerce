@@ -39,7 +39,7 @@ public class PedidoEndpoint {
         return new ResponseEntity<>(pedidoService.listarTodosPedidos(), HttpStatus.OK);
     }
 
-    @RequestMapping(path = "/pedido/{idCliente}", method =  RequestMethod.GET)
+    @RequestMapping(path = "/pedido/cliente/{idCliente}", method =  RequestMethod.GET)
     @ApiResponse(
         responseCode = "200",
         description = "Lista de pedidos",
@@ -63,10 +63,10 @@ public class PedidoEndpoint {
         }
     }
 
-    @RequestMapping(path = "/pedido/{idPedido}/item", method = RequestMethod.POST)
+    @RequestMapping(path = "/pedido/item", method = RequestMethod.POST)
     @ApiResponse(responseCode = "200", description = "Item adicionado com sucesso!")
-    public ResponseEntity<Pedido> addItem(@PathVariable Long idPedido, @RequestBody ItemDto itemDto) {
-        Pedido novoPedido = pedidoService.adicionaItem(idPedido, itemDto);
+    public ResponseEntity<Pedido> addItem(@RequestBody ItemDto itemDto) {
+        Pedido novoPedido = pedidoService.adicionaItem(itemDto);
 
         if (Objects.isNull(novoPedido)) {
             return new ResponseEntity("Falha ao adicionar item ao pedido!", HttpStatus.BAD_REQUEST);
@@ -75,10 +75,10 @@ public class PedidoEndpoint {
         }
     }
 
-    @RequestMapping(path = "/pedido/{idPedido}/item", method = RequestMethod.PUT)
+    @RequestMapping(path = "/pedido/item", method = RequestMethod.PUT)
     @ApiResponse(responseCode = "200", description = "Item alterado com sucesso!")
-    public ResponseEntity<Pedido> changeItem(@PathVariable Long idPedido, @RequestBody ItemDto itemDto) {
-        Pedido pedidoAlterado = pedidoService.alteraItem(idPedido, itemDto);
+    public ResponseEntity<Pedido> changeItem(@RequestBody ItemDto itemDto) {
+        Pedido pedidoAlterado = pedidoService.alteraItem(itemDto);
 
         if (Objects.isNull(pedidoAlterado)) {
             return new ResponseEntity("Falha ao alterar item do pedido!", HttpStatus.BAD_REQUEST);
@@ -87,10 +87,10 @@ public class PedidoEndpoint {
         }
     }
 
-    @RequestMapping(path = "/pedido/{idPedido}/item/{idItem}", method = RequestMethod.DELETE)
+    @RequestMapping(path = "/pedido/item/{idItem}", method = RequestMethod.DELETE)
     @ApiResponse(responseCode = "200", description = "Item deletado com sucesso!")
-    public ResponseEntity<Pedido> removeItem(@PathVariable Long idPedido, @PathVariable Long idItem) {
-        Pedido pedidoAlterado = pedidoService.removeItem(idPedido, idItem);
+    public ResponseEntity<Pedido> removeItem(@PathVariable Long idItem) {
+        Pedido pedidoAlterado = pedidoService.removeItem(idItem);
 
         if (Objects.isNull(pedidoAlterado)) {
             return new ResponseEntity("Falha ao remover item do pedido!", HttpStatus.BAD_REQUEST);
@@ -99,7 +99,7 @@ public class PedidoEndpoint {
         }
     }
 
-    @RequestMapping(path = "/pedido/{idPedido}", method = RequestMethod.PUT)
+    @RequestMapping(path = "/pedido/efetivar/{idPedido}", method = RequestMethod.PUT)
     @ApiResponse(responseCode = "200", description = "Pedido efetivado com sucesso!")
     public ResponseEntity<String> fulfillOrder(@PathVariable Long idPedido) {
         boolean pedidoEfetuado = pedidoService.efetuaPedido(idPedido);

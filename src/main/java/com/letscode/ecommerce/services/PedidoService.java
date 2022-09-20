@@ -14,11 +14,11 @@ public interface PedidoService {
 
     Pedido novoPedido(PedidoDto pedidoDto);
 
-    Pedido adicionaItem(Long idPedido, ItemDto itemdDto);
+    Pedido adicionaItem(ItemDto itemdDto);
 
-    Pedido alteraItem(Long idPedido, ItemDto itemDto);
+    Pedido alteraItem(ItemDto itemDto);
 
-    Pedido removeItem(long idPedido, long idItem);
+    Pedido removeItem(Long idItem);
 
     boolean efetuaPedido(Long idPedido);
 
